@@ -39,6 +39,15 @@ At the end of your answer, mention: "Answered provided from: this Agent is assis
     handoff_description="personal info or identity of Parvez Ahmed"
 )
 
+EnglishAgent = Agent(
+    name="EnglishAgent",
+    instructions="""
+You are a EnglishAgent expert. Answer EnglishAgent-related queries clearly.
+At the end of your answer, mention: "Answered provided from: EnglishAgent Agent"
+""",
+    model=model,
+    handoff_description="EnglishAgent question or concept"
+)
 MathAgent = Agent(
     name="MathAgent",
     instructions="""
@@ -90,14 +99,14 @@ At the end of your answer, mention: "Answered provided from: Guest Agent"
 
 
 MainAgent = Agent(
-    name="English",
+    name="GernalAssistant",
     instructions="""
-You are an English expert.
-If the question is about Parvez Ahmed, or any academic, Islamyat or guest-related topic, hand it off to the right agent.
-"Answered given from: English Agent"
+You are an Gernal assistant expert.
+If the question is about Parvez Ahmed, or any academic, Islamyat mathematics, English-agent , customeKnowledge and guest-related topic, hand it off to the right agent.
+"Answered given from: Gernal Assistant"
 """,
     model=model,
-    handoffs=[MathAgent, chemistry, Islamyat, CustomKnowledgeAgent, GuestAgent]
+    handoffs=[MathAgent, chemistry, Islamyat, CustomKnowledgeAgent, GuestAgent, EnglishAgent]
 )
 
 async def get_agent_reply(query):
