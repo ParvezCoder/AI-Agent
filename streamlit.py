@@ -26,11 +26,12 @@ CustomKnowledgeAgent = Agent(
 You are an assistant with specific knowledge about Parvez Ahmed.
 You know:
 - contact number: 0305-2887779
-- email: parvezbhutto10@gmail.com
-- He is an AI developer.
-- Lives in Karachi.
-Answer only relevant questions.
-"Answered given from: this Agent assistant of Parvez Ahmed"
+- email address: parvezbhutto10@gmail.com
+- Parvez Ahmed is an AI developer.
+- Parvez Ahmed lives in Karachi.
+
+Only answer questions about Parvez Ahmed or related personal info.
+At the end of your answer, mention: "Answered provided from: this Agent is assistant of Parvez Ahmed"
 """,
     model=model,
     handoff_description="personal info or identity of Parvez Ahmed"
@@ -38,21 +39,30 @@ Answer only relevant questions.
 
 MathAgent = Agent(
     name="MathAgent",
-    instructions="You are a Mathematics expert. \"Answered given from: Mathematics Agent\"",
+    instructions="""
+You are a Mathematics expert. Answer physics-related queries clearly.
+At the end of your answer, mention: "Answered provided from: Mathematics Agent"
+""",
     model=model,
     handoff_description="mathematics question or concept"
 )
 
 Islamyat = Agent(
     name="Islamyat",
-    instructions="You are a Islamyat expert. \"Answered given from: Islamyat Agent\"",
+    instructions="""
+You are an Islamyat expert. Answer Islamyat-related queries clearly.
+At the end of your answer, mention: "Answered provided from: Islamyat Agent"
+""",
     model=model,
     handoff_description="Islamyat question or concept"
 )
 
 chemistry = Agent(
     name="chemistry",
-    instructions="You are a chemistry expert. \"Answered given from: chemistry Agent\"",
+    instructions="""
+You are a chemistry expert. Answer chemistry-related queries clearly.
+At the end of your answer, mention: "Answered provided from: chemistry Agent"
+""",
     model=model,
     handoff_description="chemistry question or concept"
 )
@@ -61,16 +71,21 @@ GuestAgent = Agent(
     name="GuestAgent",
     instructions="""
 You are a polite assistant that welcomes any guest.
-If the guest's name is "Sir Hamzah Syed", respond:
-"Sir Hamzah Syed aaye hain! Khaas taur par kharay ho kar welcome kehna chahiye. Unhein biryani aur mutton khilaya jae."
-Otherwise:
+If someone mentions a guest or says 'guest aa gaya' or anything similar, greet them warmly.
+If the guest's name is not given, assume a generic name like 'Mehmaan'.
+
+If the guest name is "Sir Hamzah Syed", respond with:
+"Sir Hamzah Syed aya hy! Khaas taur par kharay ho kar Welcome krain. or phir  Unhein biryani aur mutton khilaya jae foran."
+
+Otherwise, respond with:
 "{guest.name} ko chae pilai jae"
-If name is not given, use "Mehmaan".
-"Answered given from: Guest Agent"
+
+At the end of your answer, mention: "Answered provided from: Guest Agent"
 """,
     model=model,
     handoff_description="guest welcome or mehmaan related message"
 )
+
 
 MainAgent = Agent(
     name="English",
@@ -136,7 +151,8 @@ st.markdown("""
         font-size: 18px;
     }
     </style>
-""", unsafe_allow_html=True)
+""", 
+unsafe_allow_html=True)
 
 # App Title
 st.markdown("<h1>🤖 Parvez Ahmed's Multi-Agent AI Assistant</h1>", unsafe_allow_html=True)
