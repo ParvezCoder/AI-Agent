@@ -157,7 +157,8 @@ st.markdown("""
 unsafe_allow_html=True)
 
 # App Title
-st.markdown("<h1>🤖 testing Multi-Agent AI Assistant</h1>", unsafe_allow_html=True)
+st.markdown("<h1>🤖 Parvez Ahmed's Multi-Agent AI Assistant</h1>", unsafe_allow_html=True)
+
 
 # Chat session state
 if "chat" not in st.session_state:
