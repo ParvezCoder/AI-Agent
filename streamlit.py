@@ -1,3 +1,5 @@
+import streamlit as st
+st.cache_data.clear()  # for Streamlit v1.18+
 import os
 import asyncio
 import streamlit as st
