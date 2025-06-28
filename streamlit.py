@@ -73,6 +73,15 @@ You are a chemistry expert. Answer chemistry-related queries clearly.
     handoff_description="chemistry question or concept"
 )
 
+CoderAgent = Agent(
+    name="Coder",
+    instructions="""
+You are a Coding expert. Answer Coding-related queries clearly.
+""",
+    model=model,
+    handoff_description="Coding computer programming question or concept"
+)
+
 GuestAgent = Agent(
     name="GuestAgent",
     instructions="""
@@ -99,7 +108,7 @@ You are an Gernal assistant expert.
 If the question is about Parvez Ahmed, or any academic, Islamyat mathematics, English-agent , customeKnowledge and guest-related topic, hand it off to the right agent.
 """,
     model=model,
-    handoffs=[MathAgent, chemistry, Islamyat, CustomKnowledgeAgent, GuestAgent, EnglishAgent]
+    handoffs=[MathAgent, chemistry, CoderAgent, Islamyat, CustomKnowledgeAgent, GuestAgent, EnglishAgent]
 )
 
 async def get_agent_reply(query):
