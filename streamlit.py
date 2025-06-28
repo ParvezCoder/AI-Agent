@@ -186,8 +186,8 @@ with st.form("chat_form", clear_on_submit=True):
 if submitted and user_input:
     with st.spinner("Thinking..."):
         final_output, last_agent_name = asyncio.run(get_agent_reply(user_input))
-        st.session_state.chat.insert(0, ("📢 This Answered given from", f"{last_agent_name} Agent"))
-        st.session_state.chat.insert(0, ("🤖 Response", final_output))
+        st.session_state.chat.insert(0, ("🤖 Response", f"""{final_output } 
+📢 This Answered given from {last_agent_name}"""))
         st.session_state.chat.insert(0, ("🧑 You", user_input))
 
 # Chat history
