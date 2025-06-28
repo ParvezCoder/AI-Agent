@@ -33,7 +33,6 @@ You know:
 - Parvez Ahmed lives in Karachi.
 
 Only answer questions about Parvez Ahmed or related personal info.
-At the end of your answer, mention: "Answered provided from: this Agent is assistant of Parvez Ahmed"
 """,
     model=model,
     handoff_description="personal info or identity of Parvez Ahmed"
@@ -43,7 +42,6 @@ EnglishAgent = Agent(
     name="EnglishAgent",
     instructions="""
 You are a EnglishAgent expert. Answer EnglishAgent-related queries clearly.
-At the end of your answer, mention: "Answered provided from: EnglishAgent Agent"
 """,
     model=model,
     handoff_description="EnglishAgent question or concept"
@@ -52,7 +50,6 @@ MathAgent = Agent(
     name="MathAgent",
     instructions="""
 You are a Mathematics expert. Answer physics-related queries clearly.
-At the end of your answer, mention: "Answered provided from: Mathematics Agent"
 """,
     model=model,
     handoff_description="mathematics question or concept"
@@ -62,7 +59,6 @@ Islamyat = Agent(
     name="Islamyat",
     instructions="""
 You are an Islamyat expert. Answer Islamyat-related queries clearly.
-At the end of your answer, mention: "Answered provided from: Islamyat Agent"
 """,
     model=model,
     handoff_description="Islamyat question or concept"
@@ -72,7 +68,6 @@ chemistry = Agent(
     name="chemistry",
     instructions="""
 You are a chemistry expert. Answer chemistry-related queries clearly.
-At the end of your answer, mention: "Answered provided from: chemistry Agent"
 """,
     model=model,
     handoff_description="chemistry question or concept"
@@ -91,7 +86,6 @@ If the guest name is "Sir Hamzah Syed", respond with:
 Otherwise, respond with:
 "{guest.name} ko chae pilai jae"
 
-At the end of your answer, mention: "Answered provided from: Guest Agent"
 """,
     model=model,
     handoff_description="guest welcome or mehmaan related message"
@@ -103,7 +97,6 @@ MainAgent = Agent(
     instructions="""
 You are an Gernal assistant expert.
 If the question is about Parvez Ahmed, or any academic, Islamyat mathematics, English-agent , customeKnowledge and guest-related topic, hand it off to the right agent.
-"Answered given from: Gernal Assistant"
 """,
     model=model,
     handoffs=[MathAgent, chemistry, Islamyat, CustomKnowledgeAgent, GuestAgent, EnglishAgent]
@@ -111,7 +104,7 @@ If the question is about Parvez Ahmed, or any academic, Islamyat mathematics, En
 
 async def get_agent_reply(query):
     result = await Runner.run(MainAgent, query)
-    return result.final_output
+    return result.final_output, result.last_agent.name
 
 # Streamlit config
 st.set_page_config(page_title="Multi-Agent Chat", page_icon="🤖", layout="centered")
@@ -183,9 +176,10 @@ with st.form("chat_form", clear_on_submit=True):
 
 if submitted and user_input:
     with st.spinner("Thinking..."):
-        answer = asyncio.run(get_agent_reply(user_input))
-        st.session_state.chat.append(("🧑 You", user_input))
-        st.session_state.chat.append(("🤖 AI", answer))
+        final_output, last_agent_name = asyncio.run(get_agent_reply(user_input))
+        st.session_state.chat.insert(0, ("📢 This Answered given from", f"{last_agent_name} Agent"))
+        st.session_state.chat.insert(0, ("🤖 Response", final_output))
+        st.session_state.chat.insert(0, ("🧑 You", user_input))
 
 # Chat history
 for role, msg in st.session_state.chat:
